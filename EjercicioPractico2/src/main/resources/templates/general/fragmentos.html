@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"      
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
     <head th:fragment="head">
         <title>Eventos</title>
         <meta charset="UTF-8"/>
@@ -15,40 +16,69 @@
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     </head>
+
     <body>
+
+        <!-- HEADER -->
         <header th:fragment="header" class="header d-print-none">
+
             <nav class="navbar navbar-expand-sm p-0">
-                <div class="container">                    
-                    <a th:href="@{/}" class="navbar-brand">Eventos</a>
+                <div class="container">
+
+                    <!-- INICIO -->
+                    <a th:href="@{/}" class="navbar-brand">Inicio</a>
+
                     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/consultas}">Consultas</a>
+
+                            <!-- EVENTOS -->
+                            <li class="nav-item"
+                                sec:authorize="hasAnyRole('ROLE_CLIENTE','ROLE_ORGANIZADOR','ROLE_ADMIN')">
+
+                                <a class="nav-link" th:href="@{/evento/listado}">
+                                    Eventos
+                                </a>
+
                             </li>
-                            <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                                
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>                                    
-                                    <li class="submenu submenu-md dropend">
-                                        <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                           onclick="event.stopPropagation();">
-                                            [[#{plantilla.seguridad}]]
-                                        </a>
-                                        <ul class="dropdown-menu">                                            
-                                            <li><a class="dropdown-item" th:href="@{/usuario_rol/role}">[[#{plantilla.troles}]]</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/usuario_rol/mantenimiento}">[[#{plantilla.permisos}]]</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/usuario_rol/ruta}">[[#{plantilla.rutas}]]</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="dropdown-item" th:href="@{/constante/listado}">[[#{plantilla.constantes}]]</a></li>
-                                </ul>
+
+                            <!-- CONSULTAS SOLO ADMIN -->
+                            <li class="nav-item"
+                                sec:authorize="hasRole('ROLE_ADMIN')">
+
+                                <a class="nav-link" th:href="@{/consultas}">
+                                    Consultas
+                                </a>
+
                             </li>
+
+                            <!-- USUARIO SOLO ADMIN -->
+                            <li class="nav-item"
+                                sec:authorize="hasRole('ROLE_ADMIN')">
+
+                                <a class="nav-link" th:href="@{/usuario/listado}">
+                                    Usuario
+                                </a>
+
+                            </li>
+
+                            <!-- ROLES SOLO ADMIN -->
+                            <li class="nav-item"
+                                sec:authorize="hasRole('ROLE_ADMIN')">
+
+                                <a class="nav-link" th:href="@{/usuario_rol/role}">
+                                    Roles
+                                </a>
+
+                            </li>
+
                         </ul>
-                        <div id="resultBlock">
-                        </div>
+
+                        <!-- LOGIN -->
                         <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/login}">
@@ -57,10 +87,9 @@
                                 </a>
                             </li>
                         </ul>
+
+                        <!-- LOGOUT -->
                         <ul class="navbar-nav" sec:authorize="isAuthenticated()">
-                            <li class="nav-item my-auto">
-       
-                            </li>
                             <li class="nav-item my-auto">
                                 <form method="post" th:action="@{/logout}">
                                     <button class="btn nav-link" type="submit">
@@ -70,58 +99,71 @@
                                 </form>
                             </li>
                         </ul>
+
                     </div>
                 </div>
             </nav>
+
             <section id="main-header" class="py-2 bg-success text-white">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
-                        </div>
+                        <div class="col-md-6"></div>
                     </div>
                 </div>
             </section>
+
         </header>
 
+
+        <!-- PANTALLA PRINCIPAL -->
+        <main class="container mt-5 mb-5">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-8">
+
+                    <h1 class="display-4 mb-4">
+                        Bienvenido
+                    </h1>
+
+                    <p class="lead">
+                        En este sitio web podrÃ¡s ver cualquiera de los eventos que tenemos.
+                    </p>
+
+                </div>
+            </div>
+        </main>
+
+
+        <!-- FOOTER -->
         <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white d-print-none">
             <p class="lead text-center">[[#{plantilla.derechos}]] &COPY;</p>
         </footer>
 
+
+        <!-- TOAST -->
         <section th:fragment="mostrarToast">
-            <div aria-live="polite" aria-atomic="true" 
-                 class="position-fixed top-50 start-50 translate-middle" style="z-index: 1080;">                
-                <div th:if="${error}" class="toast show"
-                     role="alert"
-                     aria-live="assertive"                     
-                     aria-atomic="true"
-                     data-bs-autohide="true">
+            <div aria-live="polite"
+                 aria-atomic="true"
+                 class="position-fixed top-50 start-50 translate-middle"
+                 style="z-index: 1080;">
+
+                <div th:if="${error}" class="toast show" data-bs-autohide="true">
                     <div class="toast-header text-white bg-danger">
-                        <i class="fa-solid fa-bomb"></i> <strong clas=me-auto> [[#{error}]]</strong>
+                        <strong class="me-auto">Error</strong>
                     </div>
                     <div class="toast-body">
-                        <p>[[${error}]]</p>
-                        <div class="mt-2 pt-2 border-top text-center">
-                            <button type="button" class="btn btn-secondary btn-sm" 
-                                    data-bs-dismiss="toast">[[#{accion.cerrar}]]</button>
-                        </div>
+                        [[${error}]]
                     </div>
                 </div>
-                <div th:if="${todoOk}" class="toast show"
-                     role="status"
-                     aria-live="polite"
-                     aria-atomic="true"
-                     data-bs-autohide="true">
+
+                <div th:if="${todoOk}" class="toast show" data-bs-autohide="true">
                     <div class="toast-header text-white bg-success">
-                        <i class="fa-solid fa-square-check"></i> <strong clas=me-auto> [[#{atencion}]]</strong>
+                        <strong class="me-auto">OK</strong>
                     </div>
                     <div class="toast-body">
-                        <p>[[${todoOk}]]</p>
-                        <div class="mt-2 pt-2 border-top text-center">
-                            <button type="button" class="btn btn-secondary btn-sm" 
-                                    data-bs-dismiss="toast">[[#{accion.cerrar}]]</button>
-                        </div>
+                        [[${todoOk}]]
                     </div>
                 </div>
+
             </div>
         </section>
 

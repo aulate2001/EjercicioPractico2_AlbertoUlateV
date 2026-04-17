@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:replace="general/fragmentos :: header"></div>
+
+<div class="container mt-4">
+
+    <div th:replace="evento/fragmentos :: headerEventos"></div>
+
+    <div th:replace="evento/fragmentos :: botonNuevoEvento"></div>
+
+    <table class="table table-striped table-hover">
+
+        <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Capacidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="evento : ${eventos}"
+            th:replace="evento/fragmentos :: filaEvento(${evento})">
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div th:replace="general/fragmentos :: footer"></div>
+
+</body>
+</html>

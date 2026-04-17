@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org/"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:replace="~{general/fragmentos :: head} "/>
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
     <body>
-        <header th:replace="~{general/fragmentos :: header}"/>
 
-        <section th:replace="~{consultas/fragmentos :: tabs}"/>
-        <section th:replace="~{consultas/fragmentos :: tarjetas}"/>
+        <!-- HEADER -->
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
 
+        <!-- SOLO PÁGINA PRINCIPAL -->
+        <main class="container mt-5 mb-5 text-center">
 
-        <footer th:replace="~{general/fragmentos :: footer}"/>
+            <h1 class="display-4 mb-4">
+                Página principal
+            </h1>
+
+            <p class="lead">
+                Aqui podrás ver los eventos que tenemos.
+            </p>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+        <!-- TOAST -->
+        <section th:replace="~{general/fragmentos :: mostrarToast}">
+        </section>
+
     </body>
 </html>

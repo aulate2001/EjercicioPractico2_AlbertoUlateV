@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+
+        <!-- FORMULARIO EVENTO -->
+        <div th:fragment="formEvento">
+
+            <form th:action="@{/evento/guardar}" th:object="${evento}" method="post">
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="container mt-4">
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" required/>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Fecha</label>
+                            <input type="date" class="form-control" th:field="*{fecha}" required/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label>Capacidad</label>
+                            <input type="number" class="form-control" th:field="*{capacidad}" required/>
+                        </div>
+
+                        <div class="col-md-6 d-flex align-items-end">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" th:field="*{activo}"/>
+                                <label class="form-check-label">Activo</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label>Descripción</label>
+                            <textarea class="form-control" rows="4" th:field="*{descripcion}"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- BOTONES -->
+                    <div class="text-end">
+
+                        <a th:href="@{/evento/listado}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-success">
+                            Guardar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+</html>
