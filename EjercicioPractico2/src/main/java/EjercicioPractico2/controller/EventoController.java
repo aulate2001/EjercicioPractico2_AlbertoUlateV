@@ -3,14 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package EjercicioPractico2.controller;
-import EjercicioPractico2.domain.Evento;
-import EjercicioPractico2.domain.Usuario;
-import EjercicioPractico2.service.EventoService;
-import EjercicioPractico2.service.UsuarioService;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.*;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import EjercicioPractico2.domain.Evento;
+import EjercicioPractico2.service.EventoService;
 
 /**
  *

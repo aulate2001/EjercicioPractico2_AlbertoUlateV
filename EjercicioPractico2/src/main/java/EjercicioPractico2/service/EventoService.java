@@ -47,6 +47,16 @@ public class EventoService {
         return eventoRepository.save(evento);
     }
 
+    @Transactional(readOnly = true)
+    public List<Evento> getEventosByCapacidadBetween(int min, int max) {
+        return eventoRepository.findByCapacidadBetweenJPQL(min, max);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Evento> getEventosByCapacidadBetweenNative(int min, int max) {
+        return eventoRepository.findByCapacidadBetweenNative(min, max);
+    }
+
     @Transactional
     public void delete(Long id) {
         eventoRepository.deleteById(id);
